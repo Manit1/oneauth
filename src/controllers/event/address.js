@@ -9,7 +9,7 @@ const getEventFunction = (type, sendType) => async (addressId, userId) => {
 }
 
 module.exports = {
-  eventUserCreated: getEventFunction('create', 'CREATED'),
-  eventUserUpdated: getEventFunction('update', 'UPDATED'),
-  eventUserDeleted: getEventFunction('delete', 'DELETED')
+  eventAddressCreated: getEventFunction('create', 'CREATED'),
+  eventAddressUpdated: getEventFunction('update', 'UPDATED'),
+  eventAddressDeleted: getEventFunction('delete', 'DELETED')
 }

@@ -20,6 +20,13 @@
                 </div>
 
                 <div class="row justify-content-between">
+                  <div class="row no-gutters align-items-center justify-content-between detail-row">
+                        <div class="label-input col-md-4 col-sm-3">Webhook URL</div>
+                        <input type="text" class="input-text col-8" value="{{client.webhookURL}}" disabled/>
+                    </div>
+                </div>
+
+                <div class="row justify-content-between">
                   {{#each client.domain as |domain|}}
                     <div class="row no-gutters align-items-center justify-content-between detail-row">
                         <div class="label-input col-md-4 col-sm-3">Domain</div>
@@ -46,7 +53,7 @@
                   {{#ifeq val=userRole expected="admin"}}
                       <div class="row no-gutters align-items-center justify-content-between detail-row">
                           <div class="label-input col-md-4 col-sm-3">Trusted Client</div>
-                          <input type="checkbox" class="input-checkbox col-7" {{#if client.trusted}} checked {{/if}} disabled/>
+                          <input type="checkbox" class="col-7" {{#if client.trusted}} checked {{/if}} disabled/>
                       </div>
                   {{/ifeq}}
                 </div>

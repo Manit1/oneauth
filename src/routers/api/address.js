@@ -67,7 +67,7 @@ router.post('/', cel.ensureLoggedIn('/login'), async function (req, res) {
                 req.flash('error', 'This number does not exist in your country.')
                 return res.redirect('/address/add' + returnTo ? `?returnTo=${returnTo}` : '')
             }
-            const address = await createAddress(options)
+            const address = await createAddress(options, req.user.id)
 
             if (returnTo) {
                 res.redirect(returnTo)
@@ -99,7 +99,7 @@ router.post('/:id', cel.ensureLoggedIn('/login'), async function (req, res) {
             if (req.body.primary === 'on') {
                 let demo = await findDemographic(req.user.id)
                 let demoId = demo.id
-                await updateAddressbyDemoId(demoId, {primary: false})
+                await updateAddressbyDemoId(demoId, {primary: false}, req.user.id)
             }
 
             let number = req.body.dial_code + req.body.mobile_number
@@ -123,7 +123,7 @@ router.post('/:id', cel.ensureLoggedIn('/login'), async function (req, res) {
                 dial_code: req.body.dial_code,
                 whatsapp_number: req.body.whatsapp_number || null,
                 primary: req.body.primary === 'on'
-            })
+            }, req.user.id)
 
             if (req.body.returnTo) {
                 return res.redirect(req.body.returnTo)

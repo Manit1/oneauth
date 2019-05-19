@@ -1,14 +1,23 @@
+const Raven = require('raven')
 const { models } = require("../db/models");
+const { eventAddressCreated, eventAddressUpdated } = require('./event/address')
+const { eventDemographicCreated, eventDemographicUpdated } = require('./event/demographics')
 
-function findOrCreateDemographic(userId) {
-  return models.Demographic.findCreateFind({
+async function findOrCreateDemographic(userId) {
+  const [demographic, created] = await models.Demographic.findCreateFind({
     where: { userId: userId },
     include: [models.Address]
   });
+  if (created) {
+    eventDemographicCreated(demographic.id, userId).catch(Raven.captureException)
+  }
+  return [demographic, created]
 }
 
-function createAddress(options) {
-  return models.Address.create(options);
+async function createAddress(options, userId) {
+  const address = await models.Address.create(options);
+  eventAddressCreated(address.id, userId).catch(Raven.captureException)
+  return address
 }
 
 function findDemographic(userId) {
@@ -27,16 +36,20 @@ function findAddress(userId, demoUserId) {
   });
 }
 
-function updateAddressbyAddrId(addrId, options) {
-  return models.Address.update(options, {
+async function updateAddressbyAddrId(addrId, options, userId) {
+  const updated = await models.Address.update(options, {
     where: { id: addrId }
   });
+  eventAddressUpdated(addrId, userId).catch(Raven.captureException)
+  return updated
 }
 
-function updateAddressbyDemoId(demoId, options) {
-  return models.Address.update(options, {
+async function updateAddressbyDemoId(demoId, options, userId) {
+  const updated = await models.Address.update(options, {
     where: { id: demoId }
   });
+  eventDemographicUpdated(demoId, userId).catch(Raven.captureException)
+  return updated
 }
 
 function findAllAddresses(userId, includes = [models.Demographic]) {

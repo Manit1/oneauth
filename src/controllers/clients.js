@@ -1,6 +1,8 @@
 const generator = require("../utils/generator");
 const urlutils = require("../utils/urlutils");
+const Raven = require('raven')
 const { Client } = require("../db/models").models;
+const { eventClientCreated, eventClientUpdated } = require('./event/client')
 
 function findClientById(id) {
   return Client.findOne({
@@ -8,7 +10,7 @@ function findClientById(id) {
   });
 }
 
-function createClient(options, userId) {
+async function createClient(options, userId) {
   options.defaultURL = urlutils.prefixHttp(options.defaultURL);
 
   //Make sure all urls have http in them
@@ -18,7 +20,7 @@ function createClient(options, userId) {
   options.clientCallbacks.forEach(function(url, i, arr) {
     arr[i] = urlutils.prefixHttp(url);
   });
-  return Client.create({
+  const client = await Client.create({
     id: generator.genNdigitNum(10),
     secret: generator.genNcharAlphaNum(64),
     name: options.clientName,
@@ -27,8 +29,10 @@ function createClient(options, userId) {
     callbackURL: options.clientCallbacks,
     userId: userId
   });
+  eventClientCreated(client.id, userId).catch(Raven.captureException)
+  return client
 }
-function updateClient(options, clientId) {
+async function updateClient(options, clientId, userId) {
   options.defaultURL = urlutils.prefixHttp(options.defaultURL);
   //Make sure all urls have http in them
   options.clientDomains.forEach(function(url, i, arr) {
@@ -48,10 +52,12 @@ function updateClient(options, clientId) {
   if (options.webhookURL) {
     update.webhookURL = options.webhookURL
   }
-  return Client.update( update, {
+  const updated = await Client.update( update, {
       where: { id: clientId }
     }
   );
+  eventClientUpdated(clientId, userId).catch(Raven.captureException)
+  return updated
 }
 
 function findAllClients() {

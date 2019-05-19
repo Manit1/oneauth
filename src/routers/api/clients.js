@@ -65,6 +65,7 @@ router.post('/edit/:id', cel.ensureLoggedIn('/login'),
                 clientName : req.body.clientname,
                 clientDomains : req.body.domain.replace(/ /g, '').split(';'),
                 clientCallbacks : req.body.callback.replace(/ /g, '').split(';'),
+                webhookURL : req.body.webhookurl.replace(/ /g, ''),
                 defaultURL : req.body.defaulturl.replace(/ /g, ''),
                 trustedClient : false
             }
@@ -80,7 +81,7 @@ router.post('/edit/:id', cel.ensureLoggedIn('/login'),
             if (req.body.webhookurl && isURL(req.body.webhookurl)){
                 options.webhookURL = req.body.webhookurl
             }
-            await updateClient(options, clientId)
+            await updateClient(options, clientId, req.user.id)
 
             await deleteEventSubscription (req.params.id)
 

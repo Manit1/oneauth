@@ -42,15 +42,15 @@
                         <div class="label-input col-md-4 col-sm-3">Users</div>
                         <div class="col-8 row justify-content-between">
                             <span>
-                                <input class="input-checkbox" {{#if event_subscription.cUser}}checked{{/if}} type="checkbox" name="event_c_user" value="1">
+                                <input {{#if event_subscription.cUser}}checked{{/if}} type="checkbox" name="event_c_user" value="1">
                                 CREATE
                             </span>
                             <span>
-                                <input class="input-checkbox" {{#if event_subscription.uUser}}checked{{/if}} type="checkbox" name="event_u_user" value="1">
+                                <input {{#if event_subscription.uUser}}checked{{/if}} type="checkbox" name="event_u_user" value="1">
                                 UPDATE
                             </span>
                             <span>
-                                <input class="input-checkbox" {{#if event_subscription.dUser}}checked{{/if}} type="checkbox" name="event_d_user" value="1">
+                                <input {{#if event_subscription.dUser}}checked{{/if}} type="checkbox" name="event_d_user" value="1">
                                 DELETE
                             </span>
                         </div>
@@ -59,15 +59,15 @@
                         <div class="label-input col-md-4 col-sm-3">Demographics</div>
                         <div class="col-8 row justify-content-between">
                             <span>
-                                <input class="input-checkbox" {{#if event_subscription.cDemographic}}checked{{/if}} type="checkbox" name="event_c_demographics" value="1">
+                                <input {{#if event_subscription.cDemographic}}checked{{/if}} type="checkbox" name="event_c_demographics" value="1">
                                 CREATE
                             </span>
                             <span>
-                                <input class="input-checkbox" {{#if event_subscription.uDemographic}}checked{{/if}} type="checkbox" name="event_u_demographics" value="1">
+                                <input {{#if event_subscription.uDemographic}}checked{{/if}} type="checkbox" name="event_u_demographics" value="1">
                                 UPDATE
                             </span>
                             <span>
-                                <input class="input-checkbox" {{#if event_subscription.dDemographic}}checked{{/if}} type="checkbox" name="event_d_demographics" value="1">
+                                <input {{#if event_subscription.dDemographic}}checked{{/if}} type="checkbox" name="event_d_demographics" value="1">
                                 DELETE
                             </span>
                         </div>
@@ -76,15 +76,15 @@
                         <div class="label-input col-md-4 col-sm-3">Addresses</div>
                         <div class="col-8 row justify-content-between">
                             <span>
-                                <input class="input-checkbox" {{#if event_subscription.cAddress}}checked{{/if}} type="checkbox" name="event_c_address" value="1">
+                                <input {{#if event_subscription.cAddress}}checked{{/if}} type="checkbox" name="event_c_address" value="1">
                                 CREATE
                             </span>
                             <span>
-                                <input class="input-checkbox" {{#if event_subscription.uAddress}}checked{{/if}} type="checkbox" name="event_u_address" value="1">
+                                <input {{#if event_subscription.uAddress}}checked{{/if}} type="checkbox" name="event_u_address" value="1">
                                 UPDATE
                             </span>
                             <span>
-                                <input class="input-checkbox" {{#if event_subscription.dAddress}}checked{{/if}} type="checkbox" name="event_d_address" value="1">
+                                <input {{#if event_subscription.dAddress}}checked{{/if}} type="checkbox" name="event_d_address" value="1">
                                 DELETE
                             </span>
                         </div>
@@ -93,15 +93,15 @@
                         <div class="label-input col-md-4 col-sm-3">Clients</div>
                         <div class="col-8 row justify-content-between">
                             <span>
-                                <input class="input-checkbox" {{#if event_subscription.cClient}}checked{{/if}} type="checkbox" name="event_c_client" value="1">
+                                <input {{#if event_subscription.cClient}}checked{{/if}} type="checkbox" name="event_c_client" value="1">
                                 CREATE
                             </span>
                             <span>
-                                <input class="input-checkbox" {{#if event_subscription.uClient}}checked{{/if}} type="checkbox" name="event_u_client" value="1">
+                                <input {{#if event_subscription.uClient}}checked{{/if}} type="checkbox" name="event_u_client" value="1">
                                 UPDATE
                             </span>
                             <span>
-                                <input class="input-checkbox" {{#if event_subscription.dClient}}checked{{/if}} type="checkbox" name="event_d_client" value="1">
+                                <input {{#if event_subscription.dClient}}checked{{/if}} type="checkbox" name="event_d_client" value="1">
                                 DELETE
                             </span>
                         </div>
@@ -112,7 +112,7 @@
                 {{#ifeq val=userRole expected="admin"}}
                     <div class="row no-gutters align-items-center justify-content-between detail-row">
                         <div class="label-input col-md-4 col-sm-3">Trusted Client</div>
-                        <input type="checkbox" class="input-checkbox col-7" placeholder="Default URL" name="trustedClient" {{#if client.trusted}}checked{{/if}}/>
+                        <input type="checkbox" class="col-7" placeholder="Default URL" name="trustedClient" {{#if client.trusted}}checked{{/if}}/>
                     </div>
                 {{/ifeq}}
 
